@@ -145,7 +145,7 @@ microk8s-addons:
     - name: "csi-driver-lvm"
       description: "CSI DRIVER LVM utilizes local storage of Kubernetes nodes to provide persistent storage for pods."
       version: "0.5.0"
-      check_status: "deployment.apps/csi-driver-lvm"
+      check_status: "statefulset.apps/csi-driver-lvm-controller"
       supported_architectures:
         - amd64
 

@@ -11,7 +11,7 @@ microk8s-addons:
 
     - name: "istio"
       description: "Core Istio service mesh services"
-      version: "1.10.3"
+      version: "1.15.1"
       check_status: "${SNAP_DATA}/bin/istioctl"
       supported_architectures:
         - amd64
@@ -137,8 +137,15 @@ microk8s-addons:
 
     - name: "argocd"
       description: "Argo CD is a declarative continuous deployment for Kubernetes."
-      version: "2.3.3"
+      version: "2.4.14"
       check_status: "deployment.apps/argo-cd-argocd-server"
+      supported_architectures:
+        - amd64
+
+    - name: "csi-driver-lvm"
+      description: "CSI DRIVER LVM utilizes local storage of Kubernetes nodes to provide persistent storage for pods."
+      version: "0.5.0"
+      check_status: "deployment.apps/csi-driver-lvm"
       supported_architectures:
         - amd64
 

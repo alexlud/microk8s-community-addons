@@ -46,7 +46,7 @@ $HELM repo add metal-stack https://helm.metal-stack.io
 # install the helm chart
 if [ -z "$PATTERN" ]
 then
-    $HELM upgrade -i csi-driver-lvm helm/csi-driver-lvm \
+    $HELM upgrade -i csi-driver-lvm metal-stack/csi-driver-lvm \
       --version $CSI_DRIVER_LVM_HELM_VERSION \
       --namespace "$NAMESPACE_CSI_DRIVER_LVM" \
       --set lvm.devicePattern='/dev/vdb'

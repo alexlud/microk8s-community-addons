@@ -23,6 +23,7 @@ $HELM -n openebs install openebs openebs/openebs \
     --set jiva.enabled=false \
     --set legacy.enabled=false \
     --set localprovisioner.basePath="$SNAP_COMMON/var/openebs/local" \
+    --set localprovisioner.enableDeviceClass=false \
     --set ndm.sparse.path="$SNAP_COMMON/var/openebs/sparse" \
     --set varDirectoryPath.baseDir="$SNAP_COMMON/var/openebs"
 

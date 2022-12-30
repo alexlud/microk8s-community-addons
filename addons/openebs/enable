@@ -9,21 +9,6 @@ HELM="$SNAP/microk8s-helm3.wrapper"
 
 OPENEBS_NS="openebs"
 
-print_iscsi_help() {
-    echo "Make sure iscsi is installed on all nodes."
-    echo "To enable iscsid: "
-    echo "      sudo systemctl enable iscsid"
-    echo "Please refer to the OpenEBS prerequisites (https://docs.openebs.io/docs/next/prerequisites.html)"
-}
-
-# Check if iscsid is installed
-if ! is_strict && ! systemctl is-enabled iscsid | grep enabled &> /dev/null
-  then
-    echo "iscsid is not available or enabled."
-    print_iscsi_help
-    exit
-fi
-
 "$SNAP/microk8s-enable.wrapper" dns
 "$SNAP/microk8s-enable.wrapper" helm3
 
@@ -34,12 +19,9 @@ $HELM repo add openebs https://openebs.github.io/charts
 $HELM repo update
 $HELM -n openebs install openebs openebs/openebs \
     --version 3.0.x \
-    --set cstor.enabled=true \
-    --set jiva.enabled=true \
+    --set cstor.enabled=false \
+    --set jiva.enabled=false \
     --set legacy.enabled=false \
-    --set cstor.cleanup.image.tag="latest" \
-    --set cstor.csiNode.kubeletDir="$SNAP_COMMON/var/lib/kubelet/" \
-    --set jiva.csiNode.kubeletDir="$SNAP_COMMON/var/lib/kubelet/" \
     --set localprovisioner.basePath="$SNAP_COMMON/var/openebs/local" \
     --set ndm.sparse.path="$SNAP_COMMON/var/openebs/sparse" \
     --set varDirectoryPath.baseDir="$SNAP_COMMON/var/openebs"
@@ -87,8 +69,3 @@ spec:
     requests:
       storage: 5G
 "
-
-if is_strict
-then
-  print_iscsi_help
-fi
